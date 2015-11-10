@@ -552,7 +552,7 @@ properties:
 
   # -- Proerties below are used by jobs from diego-release --
   etcd:
-    machines: ["etcd.service.cf.internal"]
+    machines: (( property_overrides.etcd.machines || ["etcd.service.cf.internal"] ))
     cluster:
       - name: "database_z1"
         instances: (( instance_count_overrides.database_z1.instances || 1 ))
@@ -604,7 +604,7 @@ properties:
       auctioneer:
         api_url: (( "http://auctioneer.service.cf.internal:9016" ))
       etcd:
-        machines: ["etcd.service.cf.internal"]
+        machines: (( property_overrides.etcd.machines || ["etcd.service.cf.internal"] ))
         require_ssl: (( property_overrides.etcd.require_ssl || nil ))
         ca_cert: (( property_overrides.etcd.ca_cert ))
         client_cert: (( property_overrides.etcd.client_cert ))
@@ -726,6 +726,10 @@ properties:
         max_idle_conns_per_host: (( property_overrides.bbs.max_idle_conns_per_host || nil ))
       log_level: (( property_overrides.tps.log_level || nil ))
       traffic_controller_url: (( "wss://doppler." config_from_cf.system_domain ":443" ))
+      listener:
+        debug_addr: 0.0.0.0:17014
+      watcher:
+        debug_addr: 0.0.0.0:17015
 
   # -- Proerties below are used by jobs from garden-linux-release --
   garden:
