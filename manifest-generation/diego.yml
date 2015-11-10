@@ -857,3 +857,5 @@ base_job_templates:
       release: diego
     - name: tps
       release: diego
+    - name: rootfses
+      release: diego
